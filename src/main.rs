@@ -139,8 +139,7 @@ impl FileFinder {
         loop {
             writeln!(
                 output_buffer,
-                "\n\n@ext << change extention, @open << open file, @dsele << deselection,
-                @dsclear << deselection clear, @q or @quit << exit"
+                "\n\n@ext << change extention, @open << open file, @q or @quit << exit"
             )?;
 
             output_buffer.flush()?;
