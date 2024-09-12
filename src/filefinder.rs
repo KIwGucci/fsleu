@@ -10,7 +10,6 @@ pub fn item_search(
     let pattern = format!("**/*.{}", extension);
 
     let rootpath = Path::new(rootpath);
-    // println!("deselection: {}", deselection);
 
     let builder = globmatch::Builder::new(&pattern)
         .case_sensitive(false)
@@ -24,11 +23,11 @@ pub fn item_search(
 
     Ok(result)
 }
+
 fn is_matchword<'a>(searchword: &'a str) -> impl Fn(&'a PathBuf) -> bool {
-    // let searchwords = searchword.split_whitespace().clone();
+    // x:PathBufの中にsearchwordが含まれるかを判定する関数を返す。部分適用関数
     move |x: &PathBuf| {
         let path_string = x.display().to_string().to_lowercase();
-
         if searchword.is_empty() {
             return true;
         }
@@ -42,6 +41,7 @@ fn is_matchword<'a>(searchword: &'a str) -> impl Fn(&'a PathBuf) -> bool {
         true
     }
 }
+
 pub fn opendir(fpath: &Path) -> Result<(), std::io::Error> {
     // 対象ファイルのフォルダをファインダーで開く
     #[cfg(target_os = "macos")]
