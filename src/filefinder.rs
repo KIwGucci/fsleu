@@ -63,12 +63,13 @@ impl FileFinder {
         loop {
             let rline = my_readline.readline("extension >>")?;
 
-            if !rline.is_empty() {
-                // self.extention = rline;
-                println!("Extention:{}", self.extention);
-                return Ok(rline);
-            }
-            println!("please input search word... '*' is wildcard.");
+            match rline.is_empty() {
+                true => println!("Please input search word.. '*' is wildcard."),
+                false => {
+                    println!("Extension:{}", self.extention);
+                    return Ok(rline);
+                }
+            };
         }
     }
 
@@ -89,7 +90,7 @@ impl FileFinder {
                     break;
                 }
 
-                writeln!(output_buffer, "{}:{:?}", i, path)?;
+                writeln!(output_buffer, "{i}:{path:?}")?;
             }
 
             output_buffer.flush()?;
@@ -153,8 +154,8 @@ impl FileFinder {
                     let start = Instant::now();
                     self.stack_vec = self.search()?;
                     self.display()?;
-                    let end = Instant::now();
                     println!("------------------------------------");
+                    let end = Instant::now();
                     println!(
                         "Search process took {} milliseconds",
                         end.duration_since(start).as_millis()
@@ -171,7 +172,7 @@ pub fn item_search(
     extension: &str,
     searchword: &str,
 ) -> Result<Vec<PathBuf>, Box<dyn std::error::Error>> {
-    let pattern = format!("**/*.{}", extension);
+    let pattern = format!("**/*.{extension}");
 
     let rootpath = Path::new(rootpath);
 

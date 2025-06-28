@@ -8,5 +8,5 @@ authors = ["KiwGucci<kiw.a.gucci@gmail.com>"]
 
 [dependencies]
 globmatch = "0.3.0"
-rustyline = "14.0.0"
-crossterm = "0.28.1"
+rustyline = "16.0.0"
+crossterm = "0.29.0"
